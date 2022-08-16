@@ -25,9 +25,7 @@ formula = params.formula.replaceAll("\\(", "\\\\(").replaceAll("\\)", "\\\\)")
 
 // PROCESS 1: Check inputs; output the list of gene IDs and grna groups
 process check_inputs {
-  time "5m"
-  memory "5 GB"
-
+  
   input:
   path "multimodal_metadata_fp"
   path "gene_odm_fp"
@@ -51,9 +49,7 @@ process check_inputs {
 
 // PROCESS 2: Perform gene precomputation
 process perform_gene_precomputation {
-  time { 30.s * params.gene_pod_size }
-  memory "3 GB"
-
+  
   input:
   path "multimodal_metadata_fp"
   path "gene_odm_fp"
@@ -71,9 +67,7 @@ process perform_gene_precomputation {
 
 // PROCESS 3: Perform grna precomputation
 process perform_grna_precomputation {
-  time { 30.s * params.gene_pod_size }
-  memory "3 GB"
-
+ 
   input:
   path "multimodal_metadata_fp"
   path "grna_odm_fp"
@@ -91,8 +85,6 @@ process perform_grna_precomputation {
 
 // PROCESS 6: Perform pairwise association test
 process perform_pairwise_association_test {
-  time { 30.s * params.pair_pod_size }
-  memory "5 GB"
 
   input:
   path "multimodal_metadata_fp"
@@ -113,8 +105,6 @@ process perform_pairwise_association_test {
 
 // PROCESS 7: Combine results
 process combine_results {
-  time "5m"
-  memory "5 GB"
 
   publishDir result_dir, mode: "copy"
 
